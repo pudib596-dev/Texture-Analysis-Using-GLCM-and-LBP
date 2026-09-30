@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results | Texture Analysis Using GLCM and LBP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="site-name" href="{{ url_for('index') }}">Texture Analysis</a>
+            <a class="header-link" href="{{ url_for('index') }}">Analyze another image</a>
+        </div>
+    </header>
+
+    <main class="page-shell results-shell">
+        <section class="page-intro results-intro">
+            <p class="eyebrow">Results</p>
+            <h1>Texture Analysis Results</h1>
+            <p>{{ filename }}</p>
+        </section>
+
+        <section class="result-section" aria-labelledby="image-results-heading">
+            <h2 id="image-results-heading">Results</h2>
+            <div class="image-grid two-columns">
+                <figure class="image-panel">
+                    <figcaption>Original Image</figcaption>
+                    <img src="{{ url_for('result_file', filename=images.original) }}" alt="Uploaded original image">
+                </figure>
+                <figure class="image-panel">
+                    <figcaption>Grayscale Image</figcaption>
+                    <img src="{{ url_for('result_file', filename=images.grayscale) }}" alt="Grayscale conversion of the uploaded image">
+                </figure>
+            </div>
+        </section>
+
+        <section class="result-section" aria-labelledby="glcm-heading">
+            <h2 id="glcm-heading">GLCM Analysis</h2>
+            <div class="table-wrap">
+                <table class="results-table">
+                    <thead><tr><th scope="col">Feature</th><th scope="col">Value</th></tr></thead>
+                    <tbody>
+                        {% for feature, value in glcm_features.items() %}
+                        <tr><th scope="row">{{ feature }}</th><td>{{ "%.6f"|format(value) }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="result-section" aria-labelledby="lbp-heading">
+            <h2 id="lbp-heading">LBP Analysis</h2>
+            <div class="image-grid two-columns">
+                <figure class="image-panel">
+                    <figcaption>LBP Image</figcaption>
+                    <img src="{{ url_for('result_file', filename=images.lbp) }}" alt="Local Binary Pattern image generated from the upload">
+                </figure>
+                <figure class="image-panel">
+                    <figcaption>LBP Histogram</figcaption>
+                    <img src="{{ url_for('result_file', filename=images.histogram) }}" alt="Histogram of Local Binary Pattern codes">
+                </figure>
+            </div>
+            <div class="table-wrap lbp-table-wrap">
+                <table class="results-table">
+                    <thead><tr><th scope="col">Feature</th><th scope="col">Value</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">LBP Mean</th><td>{{ "%.6f"|format(lbp_mean) }}</td></tr>
+                        <tr><th scope="row">LBP Variance</th><td>{{ "%.6f"|format(lbp_variance) }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">Texture Analysis Using GLCM and LBP</footer>
+</body>
+</html>

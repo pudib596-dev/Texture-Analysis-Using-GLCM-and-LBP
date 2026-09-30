@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texture Analysis Using GLCM and LBP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="site-name" href="{{ url_for('index') }}">Texture Analysis</a>
+            <span class="header-detail">Digital Image Processing</span>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="page-intro">
+            <p class="eyebrow">GLCM + LBP</p>
+            <h1>Texture Analysis Using GLCM and LBP</h1>
+            <p>Image texture analysis using GLCM and Local Binary Pattern</p>
+        </section>
+
+        <section class="upload-panel" aria-labelledby="upload-heading">
+            <h2 id="upload-heading">Upload Image</h2>
+            <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+                <div class="file-row">
+                    <input type="file" id="imageInput" name="image" accept=".jpg,.jpeg,.png,.bmp" required>
+                    <label class="file-picker" for="imageInput">Choose Image</label>
+                    <span class="file-name" id="fileName">No file selected</span>
+                </div>
+                <p class="file-hint">Supported formats: JPG, JPEG, PNG, BMP</p>
+                <p class="form-error" id="clientError" role="alert" hidden></p>
+                {% if error %}
+                <p class="form-error" role="alert">{{ error }}</p>
+                {% endif %}
+                <button class="primary-button" type="submit">Analyze Image</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">Texture Analysis Using GLCM and LBP</footer>
+</body>
+</html>
